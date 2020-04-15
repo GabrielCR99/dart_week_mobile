@@ -16,5 +16,5 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Demo
-![App Demo](demo/demo.gif | height=100)
+![App Demo](demo/demo.gif)
 
