@@ -67,7 +67,7 @@ class _RemainingMoneyPanelWidgetState extends ModularState<
             ],
           ),
           SizedBox(
-            height: 60,
+            height: 30,
           ),
           Column(
             children: <Widget>[
@@ -80,80 +80,82 @@ class _RemainingMoneyPanelWidgetState extends ModularState<
                   color: Colors.green,
                 ),
               ),
-              Expanded(
-                child: Container(),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 30),
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xFF4BCE97),
-                            foregroundColor: Colors.white,
-                            child: Icon(Icons.arrow_upward),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 80.0),
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: CircleAvatar(
+                              backgroundColor: Color(0xFF4BCE97),
+                              foregroundColor: Colors.white,
+                              child: Icon(Icons.arrow_upward),
+                            ),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Receitas',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF4BCE97),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Receitas',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF4BCE97),
+                                ),
                               ),
-                            ),
-                            Text(
-                              'R\$ 200',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF4BCE97),
+                              Text(
+                                'R\$ 200',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF4BCE97),
+                                ),
                               ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              child: Icon(Icons.arrow_downward),
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            child: Icon(Icons.arrow_downward),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Despesas',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.red,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Despesas',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.red,
+                                ),
                               ),
-                            ),
-                            Text(
-                              'R\$ 200',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.red,
+                              Text(
+                                'R\$ 200',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.red,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               )
+
             ],
           ),
         ],
