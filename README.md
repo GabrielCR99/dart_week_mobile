@@ -17,5 +17,3 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Demo
 ![App Demo](demo/demo.gif)
-<img src="demo/demo.gif" alt="App Demo" height:500px>
-
