@@ -1,0 +1,2 @@
+lib/app/modules/movimentations/widgets/remaining_money_panel_controller.dart
+test/app/modules/movimentations/widgets/remaining_money_panel_controller_test.dart
