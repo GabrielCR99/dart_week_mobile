@@ -12,6 +12,7 @@ import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
+
   const LoginPage({Key key, this.title = "Login"}) : super(key: key);
 
   @override
@@ -21,6 +22,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginController>
     with LoaderMixin {
   List<ReactionDisposer> _disposer;
+
   @override
   void initState() {
     super.initState();
@@ -130,7 +132,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
   Widget _buildHeader() {
     return Container(
       color: ThemeUtils.primaryColor,
-      height: SizeUtils.screenHeight * .5 - SizeUtils.statusBarHeight,
+      height: SizeUtils.screenHeight * .5,
       width: SizeUtils.screenWidth,
       child: Stack(
         alignment: Alignment.center,
@@ -143,5 +145,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _disposer.forEach((d) => d());
   }
 }

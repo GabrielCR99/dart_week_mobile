@@ -12,6 +12,7 @@ import 'signup_controller.dart';
 
 class SignupPage extends StatefulWidget {
   final String title;
+
   const SignupPage({Key key, this.title = "Signup"}) : super(key: key);
 
   @override
@@ -20,7 +21,6 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends ModularState<SignupPage, SignupController>
     with LoaderMixin {
-  //use 'controller' variable to access controller
   List<ReactionDisposer> _disposers;
 
   AppBar appBar = AppBar(
@@ -61,6 +61,12 @@ class _SignupPageState extends ModularState<SignupPage, SignupController>
         }
       })
     ];
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _disposers.forEach((d) => d());
   }
 
   @override

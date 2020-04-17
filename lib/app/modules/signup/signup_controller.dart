@@ -11,6 +11,7 @@ class SignupController = _SignupControllerBase with _$SignupController;
 abstract class _SignupControllerBase with Store {
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   final UserRepository userRepository;
+
   _SignupControllerBase(this.userRepository);
 
   @observable

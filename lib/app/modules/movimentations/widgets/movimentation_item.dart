@@ -1,4 +1,4 @@
-import 'package:dart_week_mobile/app/models/movimentation_model.dart';
+import 'package:dart_week_mobile/app/models/movement_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

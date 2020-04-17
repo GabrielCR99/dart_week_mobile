@@ -36,6 +36,12 @@ class _RemainingMoneyPanelWidgetState extends ModularState<
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    disposers.forEach((d) => d());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {

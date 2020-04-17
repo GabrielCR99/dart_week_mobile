@@ -1,5 +1,5 @@
 import 'package:dart_week_mobile/app/core/store_state.dart';
-import 'package:dart_week_mobile/app/models/movimentation_model.dart';
+import 'package:dart_week_mobile/app/models/movement_model.dart';
 import 'package:dart_week_mobile/app/modules/movimentations/widgets/remaining_money_panel/remaining_money_panel_controller.dart';
 import 'package:dart_week_mobile/app/repositories/move_repositories.dart';
 import 'package:dart_week_mobile/app/utils/store_utils.dart';

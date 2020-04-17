@@ -26,7 +26,6 @@ class MovimentationsPage extends StatefulWidget {
 class _MovimentationsPageState
     extends ModularState<MovimentationsPage, MovimentationsController>
     with LoaderMixin {
-  //use 'controller' variable to access controller
   List<ReactionDisposer> disposers;
   RegisterMoveController registerMoveController =
       Modular.get<RegisterMoveController>();
@@ -54,8 +53,26 @@ class _MovimentationsPageState
             break;
         }
       }),
+      reaction((_) => registerMoveController.categoriesStatus,
+          (categoryStatus) {
+        switch (categoryStatus) {
+          case StoreState.loading:
+            showLoader();
+            break;
+          case StoreState.loaded:
+            hiderLoader();
+            _showInsertModal();
+            break;
+        }
+      }),
     ];
     controller.searchMovimentation();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    disposers.forEach((d) => d());
   }
 
   @override
@@ -66,14 +83,13 @@ class _MovimentationsPageState
         PopupMenuButton<String>(
           icon: Icon(Icons.add),
           onSelected: (item) {
-            Modular.get<RegisterMoveController>().searchCategories(item);
-            _showInsertModal();
+            registerMoveController.searchCategories(item);
           },
           itemBuilder: (_) {
             return [
               PopupMenuItem(
                 child: Text('Receita'),
-                value: 'receipt',
+                value: 'recipe',
               ),
               PopupMenuItem(
                 child: Text('Despesa'),
@@ -83,11 +99,12 @@ class _MovimentationsPageState
           },
         ),
         IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              Modular.get<UserRepository>().signOut();
-              Get.offAllNamed('/');
-            }),
+          icon: Icon(Icons.exit_to_app),
+          onPressed: () {
+            Modular.get<UserRepository>().signOut();
+            Get.offAllNamed('/');
+          },
+        ),
       ],
       centerTitle: true,
     );
@@ -113,7 +130,8 @@ class _MovimentationsPageState
                   case StoreState.loaded:
                     return _buildContent();
                   case StoreState.error:
-                    Get.snackbar('Ero ao pegar dados', controller.errorMessage);
+                    Get.snackbar(
+                        'Ero ao buscar dados', controller.errorMessage);
                     return Container();
                 }
               },
@@ -133,24 +151,21 @@ class _MovimentationsPageState
       children: <Widget>[
         Expanded(
           child: ListView.separated(
-            itemBuilder: (_, index) => MovimentationItem(
-              item: controller.moves[index],
-            ),
-            separatorBuilder: (_, index) => Divider(
-              color: Colors.black,
-            ),
+            itemBuilder: (_, index) =>
+                MovimentationItem(item: controller.moves[index]),
+            separatorBuilder: (_, index) => Divider(color: Colors.black),
             itemCount: controller.moves?.length ?? 0,
           ),
+        ),
+        SizedBox(
+          height: SizeUtils.screenHeight * .08,
         ),
       ],
     );
   }
 
   _showInsertModal() {
-    registerMoveController.changeCategory(null);
-    registerMoveController.changeDescription('');
-    registerMoveController.moneyController.text = '';
-    registerMoveController.isCategoryValid = true;
+    registerMoveController.resetForm();
 
     Get.dialog(AlertDialog(
       content: RegisterMoveWidget(),
