@@ -1,0 +1,4 @@
+lib/app/modules/movimentations/widgets/register_move/register_move_widget.dart
+test/app/modules/movimentations/widgets/register_move/register_move_widget_test.dart
+lib/app/modules/movimentations/widgets/register_move/register_move_controller.dart
+test/app/modules/movimentations/widgets/register_move/register_move_controller_test.dart
