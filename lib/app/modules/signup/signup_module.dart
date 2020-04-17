@@ -1,11 +1,12 @@
 import 'package:dart_week_mobile/app/modules/signup/signup_controller.dart';
+import 'package:dart_week_mobile/app/repositories/user_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dart_week_mobile/app/modules/signup/signup_page.dart';
 
 class SignupModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => SignupController()),
+        Bind((i) => SignupController(i.get<UserRepository>())),
       ];
 
   @override

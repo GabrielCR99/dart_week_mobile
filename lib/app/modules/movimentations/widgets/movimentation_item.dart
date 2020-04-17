@@ -1,32 +1,46 @@
+import 'package:dart_week_mobile/app/models/movimentation_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MovimentationItem extends StatelessWidget {
-  const MovimentationItem({Key key}) : super(key: key);
+  final MovimentationModel item;
+  MovimentationItem({Key key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var numberFormat = NumberFormat('###.00', 'pt-BR');
+    var dateFormat = DateFormat('dd/MM/yyyy');
     return Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('15/04/2020'),
+          child: Text(
+            dateFormat.format(item.moveDate),
+          ),
         ),
         ListTile(
           leading: CircleAvatar(
-            backgroundColor: Colors.red,
+            backgroundColor:
+                item.category.categoryType == 'CategoryType.expense'
+                    ? Colors.red
+                    : Colors.blue,
             child: Icon(
-              Icons.money_off,
+              item.category.categoryType == 'CategoryType.expense'
+                  ? Icons.money_off
+                  : Icons.monetization_on,
               color: Colors.white,
             ),
           ),
-          title: Text('Descrição Aqui'),
-          subtitle: Text('Categoia aqui'),
+          title: Text(item.description),
+          subtitle: Text(item.category.name),
           trailing: Container(
             padding: EdgeInsets.only(right: 10),
             child: Text(
-              'R\$ 200',
+              'R\$ ${numberFormat.format(item.value)}',
               style: TextStyle(
-                color: Colors.red,
+                color: item.category.categoryType == 'CategoryType.expense'
+                    ? Colors.red
+                    : Colors.blue,
               ),
             ),
           ),

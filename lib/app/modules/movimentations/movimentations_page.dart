@@ -1,12 +1,21 @@
+import 'package:dart_week_mobile/app/core/store_state.dart';
+import 'package:dart_week_mobile/app/mixins/loader_mixin.dart';
 import 'package:dart_week_mobile/app/modules/movimentations/widgets/movimentation_item.dart';
+import 'package:dart_week_mobile/app/modules/movimentations/widgets/register_move/register_move_controller.dart';
+import 'package:dart_week_mobile/app/modules/movimentations/widgets/register_move/register_move_widget.dart';
 import 'package:dart_week_mobile/app/modules/movimentations/widgets/remaining_money_panel/remaining_money_panel_widget.dart';
+import 'package:dart_week_mobile/app/repositories/user_repository.dart';
 import 'package:dart_week_mobile/app/utils/size_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
+import 'package:mobx/mobx.dart';
 import 'movimentations_controller.dart';
 
 class MovimentationsPage extends StatefulWidget {
   final String title;
+
   const MovimentationsPage({Key key, this.title = "Movimentations"})
       : super(key: key);
 
@@ -15,8 +24,39 @@ class MovimentationsPage extends StatefulWidget {
 }
 
 class _MovimentationsPageState
-    extends ModularState<MovimentationsPage, MovimentationsController> {
+    extends ModularState<MovimentationsPage, MovimentationsController>
+    with LoaderMixin {
   //use 'controller' variable to access controller
+  List<ReactionDisposer> disposers;
+  RegisterMoveController registerMoveController =
+      Modular.get<RegisterMoveController>();
+
+  @override
+  void initState() {
+    super.initState();
+    disposers ??= [
+      reaction((_) => controller.remainingMoneyController.date,
+          (_) => controller.searchMovimentation()),
+      reaction((_) => registerMoveController.saveMovimentationStatus, (_) {
+        switch (_) {
+          case StoreState.loading:
+            showLoader();
+            break;
+          case StoreState.error:
+            hiderLoader();
+            Get.snackbar('Erro', 'Erro ao salvar movimentação');
+            break;
+          case StoreState.loaded:
+            hiderLoader();
+            Get.back();
+            controller.searchMovimentation();
+            controller.remainingMoneyController.searchTotalMonth();
+            break;
+        }
+      }),
+    ];
+    controller.searchMovimentation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +65,29 @@ class _MovimentationsPageState
       actions: <Widget>[
         PopupMenuButton<String>(
           icon: Icon(Icons.add),
+          onSelected: (item) {
+            Modular.get<RegisterMoveController>().searchCategories(item);
+            _showInsertModal();
+          },
           itemBuilder: (_) {
             return [
               PopupMenuItem(
                 child: Text('Receita'),
-                value: 'receita',
+                value: 'receipt',
               ),
               PopupMenuItem(
                 child: Text('Despesa'),
-                value: 'despesa',
+                value: 'expense',
               ),
             ];
           },
         ),
-        IconButton(icon: Icon(Icons.exit_to_app), onPressed: () {}),
+        IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              Modular.get<UserRepository>().signOut();
+              Get.offAllNamed('/');
+            }),
       ],
       centerTitle: true,
     );
@@ -48,6 +97,27 @@ class _MovimentationsPageState
         height: SizeUtils.screenHeight,
         child: Stack(
           children: <Widget>[
+            Observer(
+              builder: (_) {
+                switch (controller.moveState) {
+                  case StoreState.initial:
+                  case StoreState.loading:
+                    return Container(
+                      height: SizeUtils.screenHeight,
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 30),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  case StoreState.loaded:
+                    return _buildContent();
+                  case StoreState.error:
+                    Get.snackbar('Ero ao pegar dados', controller.errorMessage);
+                    return Container();
+                }
+              },
+            ),
             _buildContent(),
             RemainingMoneyPanelWidget(
               appBarHeight: appBar.preferredSize.height,
@@ -63,14 +133,43 @@ class _MovimentationsPageState
       children: <Widget>[
         Expanded(
           child: ListView.separated(
-            itemBuilder: (_, index) => MovimentationItem(),
+            itemBuilder: (_, index) => MovimentationItem(
+              item: controller.moves[index],
+            ),
             separatorBuilder: (_, index) => Divider(
               color: Colors.black,
             ),
-            itemCount: 10,
+            itemCount: controller.moves?.length ?? 0,
           ),
         ),
       ],
     );
+  }
+
+  _showInsertModal() {
+    registerMoveController.changeCategory(null);
+    registerMoveController.changeDescription('');
+    registerMoveController.moneyController.text = '';
+    registerMoveController.isCategoryValid = true;
+
+    Get.dialog(AlertDialog(
+      content: RegisterMoveWidget(),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+      ),
+      title: Text('Adicionar'),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () => Get.back(),
+          child: Text('Cancelar'),
+        ),
+        FlatButton(
+          onPressed: () => registerMoveController.saveMove(),
+          child: Text('Salvar'),
+        ),
+      ],
+    ));
   }
 }
