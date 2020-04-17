@@ -131,9 +131,10 @@ class _MovimentationsPageState
                     return _buildContent();
                   case StoreState.error:
                     Get.snackbar(
-                        'Ero ao buscar dados', controller.errorMessage);
+                        'Erro ao buscar dados', controller.errorMessage);
                     return Container();
                 }
+                return null;
               },
             ),
             _buildContent(),

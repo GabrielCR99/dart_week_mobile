@@ -97,6 +97,8 @@ class RegisterMoveWidget extends StatelessWidget {
                   height: 20,
                 ),
                 ControleJaTextFormField(
+                  textCapitalization: TextCapitalization.sentences,
+                  onChanged: controller.changeDescription,
                   label: 'Descrição',
                   borderRadius: 5,
                   fontSize: 15,
@@ -116,6 +118,7 @@ class RegisterMoveWidget extends StatelessWidget {
                   height: 20,
                 ),
                 ControleJaTextFormField(
+                  keyboardType: TextInputType.number,
                   label: 'Valor',
                   borderRadius: 5,
                   controller: controller.moneyController,

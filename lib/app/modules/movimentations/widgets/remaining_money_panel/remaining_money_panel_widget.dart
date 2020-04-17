@@ -64,25 +64,29 @@ class _RemainingMoneyPanelWidgetState extends ModularState<
             );
           },
           builder: (_, state) {
-            return Observer(builder: (_) {
-              switch (controller.totalState) {
-                case StoreState.initial:
-                case StoreState.loading:
-                  return Container(
-                    height: SizeUtils.screenHeight,
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      margin: EdgeInsets.only(top: 30),
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                case StoreState.loaded:
-                  return _buildContent();
-                case StoreState.error:
-                  Get.snackbar('Ero ao pegar dados', controller.errorMessage);
-                  return Container();
-              }
-            });
+            return Observer(
+              builder: (_) {
+                switch (controller.totalState) {
+                  case StoreState.initial:
+                  case StoreState.loading:
+                    return Container(
+                      height: SizeUtils.screenHeight,
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 30),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  case StoreState.loaded:
+                    return _buildContent();
+                  case StoreState.error:
+                    Get.snackbar(
+                        'Ero ao buscar dados', controller.errorMessage);
+                    return Container();
+                }
+                return null;
+              },
+            );
           },
         );
       },
@@ -128,7 +132,7 @@ class _RemainingMoneyPanelWidgetState extends ModularState<
             children: <Widget>[
               Text('Saldo'),
               Text(
-                'R\$ ${model.remainingMoney != null ? numberFormat.format(model.remainingMoney) : '-'}',
+                'R\$ ${model.remainingMoney != null && model.remainingMoney != 0.0 ? numberFormat.format(model.remainingMoney) : '-'}',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -165,7 +169,7 @@ class _RemainingMoneyPanelWidgetState extends ModularState<
                               ),
                             ),
                             Text(
-                              'R\$${numberFormat.format(model.recipes.total)}',
+                              'R\$ ${model.recipes.total != null && model.recipes.total != 0.0 ? numberFormat.format(model.recipes.total) : '-'}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Color(0xFF4BCE97),
@@ -196,7 +200,7 @@ class _RemainingMoneyPanelWidgetState extends ModularState<
                               ),
                             ),
                             Text(
-                              'R\$${numberFormat.format(model.expenses.total)}',
+                              'R\$ ${model.expenses.total != null && model.expenses.total != 0.0 ? numberFormat.format(model.expenses.total) : '-'}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.red,

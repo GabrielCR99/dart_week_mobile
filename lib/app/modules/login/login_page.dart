@@ -59,14 +59,16 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          _buildHeader(),
-          SizedBox(
-            height: 30,
-          ),
-          _buildForm(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            _buildHeader(),
+            SizedBox(
+              height: 30,
+            ),
+            _buildForm(),
+          ],
+        ),
       ),
     );
   }

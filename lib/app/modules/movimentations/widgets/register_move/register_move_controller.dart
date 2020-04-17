@@ -106,7 +106,7 @@ abstract class _RegisterMoveControllerBase with Store {
               category.id,
               includedDate,
               description,
-              value,
+              moneyController.numberValue,
             ),
           );
           await _saveFutureMovimentation;

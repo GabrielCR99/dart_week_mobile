@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ControleJaTextFormField extends TextFormField {
   ControleJaTextFormField({
@@ -10,7 +11,11 @@ class ControleJaTextFormField extends TextFormField {
     double fontSize,
     EdgeInsets padding,
     TextEditingController controller,
+    TextInputType keyboardType,
+    TextCapitalization textCapitalization,
   }) : super(
+          textCapitalization: textCapitalization ?? TextCapitalization.none,
+          keyboardType: keyboardType ?? TextInputType.text,
           controller: controller,
           onChanged: onChanged,
           validator: validator,
