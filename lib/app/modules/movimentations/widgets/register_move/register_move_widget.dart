@@ -5,7 +5,6 @@ import 'package:dart_week_mobile/app/widgets/controle_ja_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class RegisterMoveWidget extends StatelessWidget {

@@ -1,9 +1,7 @@
-import 'package:dart_week_mobile/app/repositories/user_repository.dart';
 import 'package:dart_week_mobile/app/utils/size_utils.dart';
 import 'package:dart_week_mobile/app/utils/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:get/get.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {

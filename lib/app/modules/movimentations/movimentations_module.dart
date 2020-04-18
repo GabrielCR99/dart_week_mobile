@@ -1,5 +1,4 @@
 import 'package:dart_week_mobile/app/modules/movimentations/widgets/register_move/register_move_controller.dart';
-import 'package:dart_week_mobile/app/modules/login/login_module.dart';
 import 'package:dart_week_mobile/app/modules/movimentations/widgets/remaining_money_panel/remaining_money_panel_controller.dart';
 import 'package:dart_week_mobile/app/modules/movimentations/movimentations_controller.dart';
 import 'package:dart_week_mobile/app/repositories/categories_repository.dart';

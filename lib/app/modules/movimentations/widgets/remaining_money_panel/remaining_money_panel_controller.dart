@@ -1,5 +1,4 @@
 import 'package:dart_week_mobile/app/core/store_state.dart';
-import 'package:dart_week_mobile/app/models/total_move_item_model.dart';
 import 'package:dart_week_mobile/app/models/total_move_model.dart';
 import 'package:dart_week_mobile/app/repositories/move_repositories.dart';
 import 'package:dart_week_mobile/app/utils/store_utils.dart';

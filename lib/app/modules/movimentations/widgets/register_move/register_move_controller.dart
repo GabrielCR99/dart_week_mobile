@@ -3,7 +3,6 @@ import 'package:dart_week_mobile/app/models/category_model.dart';
 import 'package:dart_week_mobile/app/repositories/categories_repository.dart';
 import 'package:dart_week_mobile/app/repositories/move_repositories.dart';
 import 'package:dart_week_mobile/app/utils/store_utils.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter_modular/flutter_modular.dart';
